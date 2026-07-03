@@ -35,26 +35,92 @@ using UnityEngine;
 
 public class RockPaperScissorsGame : MonoBehaviour
 {
-    private string[] choices = { "rock", "paper", "scissors" };
-
-    public void RockPaperScissors(string playerChoice)
+    private enum GameChoices 
     {
-        Debug.Log("You chose: " + playerChoice);
-        
-        string computerChoice = choices[0];
-        Debug.Log("Computer chose: " + computerChoice);
+        Rock, // 0
+        Paper, // 1
+        Scissors, // 2
+        Lizard, // 3
+        Spock, // 4
+        Maximum // Used to avoid magic number with Random.Range
+    };
 
-        if (playerChoice == "rock")
+    float maxmiumEnumValue = (float) GameChoices.Maximum;
+
+    public void RockPaperScissors(int playerChoice)
+    {
+        // Print out the player and computer choices in Enum form
+        Debug.Log("You chose: " + (GameChoices)playerChoice);
+        
+        int computerChoice = (int) (GameChoices)Random.Range(0, maxmiumEnumValue);
+        Debug.Log("Computer chose: " + (GameChoices)computerChoice);
+
+        // Tie
+        if(playerChoice == computerChoice)
         {
-            Debug.Log("It's a tie! Both chose " + playerChoice);
+            Debug.Log("It's a tie! Both chose " + (GameChoices)playerChoice);
         }
-        else if (playerChoice == "paper")
+
+
+        // Rock beats Scissors and Lizard, so the player wins
+        else if (playerChoice == 0 && (computerChoice == 2 || computerChoice == 3))
         {
-            Debug.Log("You win! " + playerChoice + " beats " + computerChoice);
+            Debug.Log("You win! " + (GameChoices)playerChoice + " beats " + (GameChoices)computerChoice);
         }
-        else
+        // Rock beats Scissors and Lizard, so the computer wins
+        else if (computerChoice == 0 && (playerChoice == 2 || playerChoice == 3))
         {
-            Debug.Log("You lose! " + computerChoice + " beats " + playerChoice);
+            Debug.Log("You lose! " + (GameChoices)computerChoice + " beats " + (GameChoices)playerChoice);
         }
+
+
+        // Paper beats Rock and Spock, so the player wins
+        else if (playerChoice == 1 && (computerChoice == 0 || computerChoice == 4))
+        {
+            Debug.Log("You win! " + (GameChoices)playerChoice + " beats " + (GameChoices)computerChoice);
+        }
+        // Paper beats Rock and Spock, so the computer wins
+        else if (computerChoice == 1 && (playerChoice == 0 || playerChoice == 4))
+        {
+            Debug.Log("You lose! " + (GameChoices)computerChoice + " beats " + (GameChoices)playerChoice);
+        }
+
+
+        // Scissors beats Paper and Lizard, so the player wins
+        else if (playerChoice == 2 && (computerChoice == 1 || computerChoice == 3))
+        {
+            Debug.Log("You win! " + (GameChoices)playerChoice + " beats " + (GameChoices)computerChoice);
+        }
+        // Scissors beats Paper and Lizard, so the computer wins
+        else if (computerChoice == 2 && (playerChoice == 1 || playerChoice == 3))
+        {
+            Debug.Log("You lose! " + (GameChoices)computerChoice + " beats " + (GameChoices)playerChoice);
+        }
+
+
+        // Lizard beats Paper and Spock, so the player wins
+        else if (playerChoice == 3 && (computerChoice == 1 || computerChoice == 4))
+        {
+            Debug.Log("You win! " + (GameChoices)playerChoice + " beats " + (GameChoices)computerChoice);
+        }
+        // Lizard beats Paper and Spock, so the computer wins
+        else if (computerChoice == 3 && (playerChoice == 1 || playerChoice == 4))
+        {
+            Debug.Log("You lose! " + (GameChoices)computerChoice + " beats " + (GameChoices)playerChoice);
+        }
+
+
+        // Spock beats Scissors and Rock, so the player wins
+        else if (playerChoice == 4 && (computerChoice == 2 || computerChoice == 0))
+        {
+            Debug.Log("You win! " + (GameChoices)playerChoice + " beats " + (GameChoices)computerChoice);
+        }
+        // Spock beats Scissors and Rock, so the computer wins
+        else if (computerChoice == 4 && (playerChoice == 2 || playerChoice == 0))
+        {
+            Debug.Log("You lose! " + (GameChoices)computerChoice + " beats " + (GameChoices)playerChoice);
+        }
+
+        
     }
 }
